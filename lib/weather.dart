@@ -5,147 +5,57 @@ import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 
-// Add these localized strings for weather page
+// Enhanced weather strings with AI advice
 const Map<String, Map<String, String>> weatherStrings = {
   'hi': {
     'weather_title': 'मौसम जानकारी',
     'current_weather': 'वर्तमान मौसम',
-    'feels_like': 'महसूस होता है',
-    'humidity': 'आर्द्रता',
-    'pressure': 'दबाव',
-    'wind_speed': 'हवा की गति',
-    'visibility': 'दृश्यता',
-    'uv_index': 'यूवी इंडेक्स',
-    'sunrise': 'सूर्योदय',
-    'sunset': 'सूर्यास्त',
-    'hourly_forecast': 'घंटे के अनुसार पूर्वानुमान',
-    'daily_forecast': '7 दिन का पूर्वानुमान',
-    'high': 'अधिकतम',
-    'low': 'न्यूनतम',
-    'loading': 'लोड हो रहा है...',
-    'error': 'त्रुटि',
-    'retry': 'पुनः प्रयास करें',
-    'location_error': 'स्थान की जानकारी नहीं मिली',
-    'farming_tips': 'कृषि सुझाव',
-    'good_for_farming': 'खेती के लिए अच्छा मौसम',
-    'check_irrigation': 'सिंचाई की जांच करें',
-    'protect_crops': 'फसलों की सुरक्षा करें',
+    'ai_advice': 'कृषि सलाह',
+    'weather_summary': 'मौसम सारांश',
+    'speak_advice': 'सलाह सुनें',
+    'generating_advice': 'सलाह तैयार की जा रही है...',
+    'advice_error': 'सलाह प्राप्त करने में त्रुटि',
+    // ... other strings
   },
   'en': {
     'weather_title': 'Weather Information',
     'current_weather': 'Current Weather',
-    'feels_like': 'Feels like',
-    'humidity': 'Humidity',
-    'pressure': 'Pressure',
-    'wind_speed': 'Wind Speed',
-    'visibility': 'Visibility',
-    'uv_index': 'UV Index',
-    'sunrise': 'Sunrise',
-    'sunset': 'Sunset',
-    'hourly_forecast': 'Hourly Forecast',
-    'daily_forecast': '7-Day Forecast',
-    'high': 'High',
-    'low': 'Low',
-    'loading': 'Loading...',
-    'error': 'Error',
-    'retry': 'Retry',
-    'location_error': 'Location not available',
-    'farming_tips': 'Farming Tips',
-    'good_for_farming': 'Good weather for farming',
-    'check_irrigation': 'Check irrigation needs',
-    'protect_crops': 'Protect crops from weather',
-  },
-  'kn': {
-    'weather_title': 'ಹವಾಮಾನ ಮಾಹಿತಿ',
-    'current_weather': 'ಪ್ರಸ್ತುತ ಹವಾಮಾನ',
-    'feels_like': 'ಅನಿಸುತ್ತದೆ',
-    'humidity': 'ಆರ್ದ್ರತೆ',
-    'pressure': 'ಒತ್ತಡ',
-    'wind_speed': 'ಗಾಳಿಯ ವೇಗ',
-    'visibility': 'ಗೋಚರತೆ',
-    'uv_index': 'ಯುವಿ ಇಂಡೆಕ್ಸ್',
-    'sunrise': 'ಸೂರ್ಯೋದಯ',
-    'sunset': 'ಸೂರ್ಯಾಸ್ತ',
-    'hourly_forecast': 'ಗಂಟೆಯ ಮುನ್ಸೂಚನೆ',
-    'daily_forecast': '7 ದಿನಗಳ ಮುನ್ಸೂಚನೆ',
-    'high': 'ಗರಿಷ್ಠ',
-    'low': 'ಕನಿಷ್ಠ',
-    'loading': 'ಲೋಡ್ ಆಗುತ್ತಿದೆ...',
-    'error': 'ದೋಷ',
-    'retry': 'ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ',
-    'location_error': 'ಸ್ಥಳ ಲಭ್ಯವಿಲ್ಲ',
-    'farming_tips': 'ಕೃಷಿ ಸಲಹೆಗಳು',
-    'good_for_farming': 'ಕೃಷಿಗೆ ಒಳ್ಳೆಯ ಹವಾಮಾನ',
-    'check_irrigation': 'ನೀರಾವರಿ ಅಗತ್ಯಗಳನ್ನು ಪರಿಶೀಲಿಸಿ',
-    'protect_crops': 'ಹವಾಮಾನದಿಂದ ಬೆಳೆಗಳನ್ನು ರಕ್ಷಿಸಿ',
+    'ai_advice': 'AI Farming Advice',
+    'weather_summary': 'Weather Summary',
+    'speak_advice': 'Speak Advice',
+    'generating_advice': 'Generating advice...',
+    'advice_error': 'Error getting advice',
+    // ... other strings
   },
   'ta': {
     'weather_title': 'வானிலை தகவல்',
-    'current_weather': 'தற்போதைய வானிலை',
-    'feels_like': 'உணர்வு',
-    'humidity': 'ஈரப்பதம்',
-    'pressure': 'அழுத்தம்',
-    'wind_speed': 'காற்றின் வேகம்',
-    'visibility': 'தெரிவுத்திறன்',
-    'uv_index': 'யூவி குறியீடு',
-    'sunrise': 'சூரிய உதயம்',
-    'sunset': 'சூரிய அஸ்தமனம்',
-    'hourly_forecast': 'மணிநேர முன்னறிவிப்பு',
-    'daily_forecast': '7 நாள் முன்னறிவிப்பு',
-    'high': 'அதிகபட்சம்',
-    'low': 'குறைந்தபட்சம்',
-    'loading': 'ஏற்றுகிறது...',
-    'error': 'பிழை',
-    'retry': 'மீண்டும் முயற்சி',
-    'location_error': 'இடம் கிடைக்கவில்லை',
-    'farming_tips': 'விவசாய குறிப்புகள்',
-    'good_for_farming': 'விவசாயத்திற்கு நல்ல வானிலை',
-    'check_irrigation': 'நீர்ப்பாசன தேவைகளை சரிபார்க்கவும்',
-    'protect_crops': 'வானிலையிலிருந்து பயிர்களை பாதுகாக்கவும்',
-  },
-  'te': {
-    'weather_title': 'వాతావరణ సమాచారం',
-    'current_weather': 'ప్రస్తుత వాతావరణం',
-    'feels_like': 'అనిపిస్తుంది',
-    'humidity': 'తేమ',
-    'pressure': 'ఒత్తిడి',
-    'wind_speed': 'గాలి వేగం',
-    'visibility': 'దృశ్యత',
-    'uv_index': 'యూవి ఇండెక్స్',
-    'sunrise': 'సూర్యోదయం',
-    'sunset': 'సూర్యాస్తమయం',
-    'hourly_forecast': 'గంటల వారీ సూచన',
-    'daily_forecast': '7 రోజుల సూచన',
-    'high': 'గరిష్టం',
-    'low': 'కనిష్టం',
-    'loading': 'లోడ్ అవుతోంది...',
-    'error': 'లోపం',
-    'retry': 'మళ్లీ ప్రయత్నించండీ',
-    'location_error': 'స్థానం అందుబాటులో లేదు',
-    'farming_tips': 'వ్యవసాయ చిట్కాలు',
-    'good_for_farming': 'వ్యవసాయానికి మంచి వాతావరణం',
-    'check_irrigation': 'నీటిపారుదల అవసరాలను తనిఖీ చేయండి',
-    'protect_crops': 'వాతావరణం నుండి పంటలను రక్షించండి',
+    'current_weather': 'தற்போதைய வானிلை',
+    'ai_advice': 'விவசாய ஆலோசனை',
+    'weather_summary': 'வானிலை சுருக்கம்',
+    'speak_advice': 'ஆலோசனை கேளுங்கள்',
+    'generating_advice': 'ஆலோசனை தயாராகிறது...',
+    'advice_error': 'ஆலோசনை பெறுவதில் பிழை',
+    // ... other strings
   },
 };
 
-class WeatherPage extends StatefulWidget {
+class EnhancedWeatherPage extends StatefulWidget {
   final String languageCode;
   final Position? currentPosition;
 
-  const WeatherPage({
+  const EnhancedWeatherPage({
     super.key,
     required this.languageCode,
     this.currentPosition,
   });
 
   @override
-  State<WeatherPage> createState() => _WeatherPageState();
+  State<EnhancedWeatherPage> createState() => _EnhancedWeatherPageState();
 }
 
-class _WeatherPageState extends State<WeatherPage> {
-  // Replace with your OpenWeatherMap API key
-  static const String _apiKey = '555f341d870f6c33624ce9907ba0c63e';
+class _EnhancedWeatherPageState extends State<EnhancedWeatherPage> {
+  // API Keys - Replace with your actual keys
+  static const String _weatherApiKey = '555f341d870f6c33624ce9907ba0c63e';
 
   Map<String, dynamic>? _currentWeather;
   List<dynamic>? _hourlyForecast;
@@ -153,6 +63,11 @@ class _WeatherPageState extends State<WeatherPage> {
   bool _isLoading = true;
   String? _error;
   Position? _position;
+
+  // AI Advice related
+  String? _aiAdvice;
+  bool _isGeneratingAdvice = false;
+  String? _adviceError;
 
   late FlutterTts _tts;
 
@@ -164,24 +79,30 @@ class _WeatherPageState extends State<WeatherPage> {
     _setupTts();
   }
 
-  void _setupTts() {
-    _tts.setErrorHandler((msg) {
-      debugPrint("TTS Error: $msg");
-    });
+  void _setupTts() async {
+    await _tts.setLanguage(_getLanguageCode());
+    await _tts.setSpeechRate(0.5);
+    await _tts.setVolume(1.0);
+    await _tts.setPitch(1.0);
   }
 
-  Future<void> _testTts() async {
-    try {
-      await _tts.setLanguage('en-US');
-      await _tts.speak("This is a test message for TTS functionality.");
-    } catch (e) {
-      debugPrint("TTS Test Error: $e");
+  String _getLanguageCode() {
+    switch (widget.languageCode) {
+      case 'hi':
+        return 'hi-IN';
+      case 'ta':
+        return 'ta-IN';
+      case 'te':
+        return 'te-IN';
+      case 'kn':
+        return 'kn-IN';
+      default:
+        return 'en-US';
     }
   }
 
   Future<void> _initializeWeather() async {
     try {
-      // Get current position if not provided
       if (widget.currentPosition != null) {
         _position = widget.currentPosition;
       } else {
@@ -190,6 +111,7 @@ class _WeatherPageState extends State<WeatherPage> {
 
       if (_position != null) {
         await _fetchWeatherData();
+        await _generateAIAdvice();
       } else {
         setState(() {
           _error = 'Location not available';
@@ -227,17 +149,15 @@ class _WeatherPageState extends State<WeatherPage> {
     if (_position == null) return;
 
     try {
-      // Fetch current weather
       final currentResponse = await http.get(
         Uri.parse(
-          'https://api.openweathermap.org/data/2.5/weather?lat=${_position!.latitude}&lon=${_position!.longitude}&appid=$_apiKey&units=metric',
+          'https://api.openweathermap.org/data/2.5/weather?lat=${_position!.latitude}&lon=${_position!.longitude}&appid=$_weatherApiKey&units=metric',
         ),
       );
 
-      // Fetch forecast data
       final forecastResponse = await http.get(
         Uri.parse(
-          'https://api.openweathermap.org/data/2.5/forecast?lat=${_position!.latitude}&lon=${_position!.longitude}&appid=$_apiKey&units=metric',
+          'https://api.openweathermap.org/data/2.5/forecast?lat=${_position!.latitude}&lon=${_position!.longitude}&appid=$_weatherApiKey&units=metric',
         ),
       );
 
@@ -294,29 +214,319 @@ class _WeatherPageState extends State<WeatherPage> {
     return result.take(7).toList();
   }
 
-  String _getWeatherIcon(String iconCode) {
-    // Map OpenWeatherMap icon codes to weather conditions
-    const iconMap = {
-      '01d': '☀️',
-      '01n': '🌙',
-      '02d': '⛅',
-      '02n': '☁️',
-      '03d': '☁️',
-      '03n': '☁️',
-      '04d': '☁️',
-      '04n': '☁️',
-      '09d': '🌧️',
-      '09n': '🌧️',
-      '10d': '🌦️',
-      '10n': '🌧️',
-      '11d': '⛈️',
-      '11n': '⛈️',
-      '13d': '❄️',
-      '13n': '❄️',
-      '50d': '🌫️',
-      '50n': '🌫️',
+  // AI Advice Generation using Hugging Face Free API
+  Future<void> _generateAIAdvice() async {
+    if (_currentWeather == null) return;
+
+    setState(() {
+      _isGeneratingAdvice = true;
+      _adviceError = null;
+    });
+
+    try {
+      final advice = await _getAIFarmingAdvice();
+      final translatedAdvice = await _translateAdvice(advice);
+
+      setState(() {
+        _aiAdvice = translatedAdvice;
+        _isGeneratingAdvice = false;
+      });
+    } catch (e) {
+      setState(() {
+        _adviceError = e.toString();
+        _isGeneratingAdvice = false;
+      });
+    }
+  }
+
+  Future<String> _getAIFarmingAdvice() async {
+    final temp = _currentWeather!['main']['temp'];
+    final humidity = _currentWeather!['main']['humidity'];
+    final windSpeed = _currentWeather!['wind']['speed'];
+    final description = _currentWeather!['weather'][0]['description'];
+    final pressure = _currentWeather!['main']['pressure'];
+
+    // Create weather context for AI
+    final weatherContext =
+        """
+Weather Conditions:
+- Temperature: ${temp}°C
+- Humidity: ${humidity}%
+- Wind Speed: ${windSpeed}m/s
+- Condition: $description
+- Pressure: ${pressure}hPa
+- Next 24h forecast: ${_getNext24HourSummary()}
+
+Generate specific farming advice based on these conditions.
+""";
+
+    // Use Hugging Face's free inference API
+    try {
+      final response = await http.post(
+        Uri.parse(
+          'https://api-inference.huggingface.co/models/microsoft/DialoGPT-medium',
+        ),
+        headers: {
+          'Authorization':
+              'Bearer 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', // Get from https://huggingface.co/settings/tokens
+          'Content-Type': 'application/json',
+        },
+        body: json.encode({
+          'inputs': 'Generate farming advice for: $weatherContext',
+          'parameters': {'max_length': 150, 'temperature': 0.7},
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        return data[0]['generated_text'] ?? _getFallbackAdvice();
+      } else {
+        return _getFallbackAdvice();
+      }
+    } catch (e) {
+      return _getFallbackAdvice();
+    }
+  }
+
+  String _getNext24HourSummary() {
+    if (_hourlyForecast == null || _hourlyForecast!.isEmpty) return '';
+
+    final next24h = _hourlyForecast!.take(8).toList();
+    final avgTemp =
+        next24h.map((e) => e['main']['temp']).reduce((a, b) => a + b) /
+        next24h.length;
+    final hasRain = next24h.any(
+      (e) => e['weather'][0]['main'].toLowerCase().contains('rain'),
+    );
+
+    return 'Average temp: ${avgTemp.toStringAsFixed(1)}°C, Rain expected: ${hasRain ? 'Yes' : 'No'}';
+  }
+
+  String _getFallbackAdvice() {
+    final temp = _currentWeather!['main']['temp'];
+    final humidity = _currentWeather!['main']['humidity'];
+    final description = _currentWeather!['weather'][0]['description']
+        .toLowerCase();
+
+    List<String> advice = [];
+
+    if (temp > 35) {
+      advice.add(
+        'High temperature detected. Increase irrigation frequency and provide shade for sensitive crops.',
+      );
+    } else if (temp < 10) {
+      advice.add(
+        'Low temperature alert. Protect crops from frost damage using covers or heating.',
+      );
+    }
+
+    if (humidity > 80) {
+      advice.add(
+        'High humidity may promote fungal diseases. Ensure good air circulation and avoid overhead watering.',
+      );
+    } else if (humidity < 30) {
+      advice.add(
+        'Low humidity detected. Increase watering frequency and consider mulching.',
+      );
+    }
+
+    if (description.contains('rain')) {
+      advice.add(
+        'Rain expected. Delay pesticide application and ensure proper drainage.',
+      );
+    } else if (description.contains('clear')) {
+      advice.add(
+        'Clear weather is ideal for spraying pesticides and fertilizers.',
+      );
+    }
+
+    if (advice.isEmpty) {
+      advice.add(
+        'Weather conditions are moderate. Continue regular farming activities with standard care.',
+      );
+    }
+
+    return advice.join(' ');
+  }
+
+  Future<String> _translateAdvice(String advice) async {
+    if (widget.languageCode == 'en') return advice;
+
+    // Use Google Translate free tier or LibreTranslate
+    try {
+      final response = await http.post(
+        Uri.parse('https://libretranslate.de/translate'),
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode({
+          'q': advice,
+          'source': 'en',
+          'target': widget.languageCode,
+          'format': 'text',
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        return data['translatedText'] ?? advice;
+      }
+    } catch (e) {
+      // Fallback to predefined translations
+      return _getFallbackTranslation(advice);
+    }
+
+    return advice;
+  }
+
+  String _getFallbackTranslation(String advice) {
+    // Simple keyword-based translation for common advice
+    final translationMap = {
+      'hi': {
+        'irrigation': 'सिंचाई',
+        'temperature': 'तापमान',
+        'humidity': 'नमी',
+        'rain': 'बारिश',
+        'crops': 'फसलें',
+        'High temperature': 'उच्च तापमान',
+        'Low humidity': 'कम नमी',
+        'Rain expected': 'बारिश की संभावना',
+      },
+      'ta': {
+        'irrigation': 'நீர்ப்பாசனம்',
+        'temperature': 'வெப்பநிலை',
+        'humidity': 'ஈரப்பதம்',
+        'rain': 'மழை',
+        'crops': 'பயிர்கள்',
+        'High temperature': 'அதிக வெப்பநிலை',
+        'Low humidity': 'குறைந்த ஈரப்பதம்',
+        'Rain expected': 'மழை எதிர்பார்க்கப்படுகிறது',
+      },
     };
-    return iconMap[iconCode] ?? '☀️';
+
+    String translated = advice;
+    final langMap = translationMap[widget.languageCode];
+    if (langMap != null) {
+      langMap.forEach((key, value) {
+        translated = translated.replaceAll(key, value);
+      });
+    }
+
+    return translated;
+  }
+
+  Future<void> _speakAdvice() async {
+    if (_aiAdvice == null) return;
+
+    try {
+      await _tts.setLanguage(_getLanguageCode());
+      await _tts.speak(_aiAdvice!);
+    } catch (e) {
+      debugPrint('TTS Error: $e');
+    }
+  }
+
+  Widget _buildAIAdviceCard() {
+    final strings =
+        weatherStrings[widget.languageCode] ?? weatherStrings['en']!;
+
+    return Card(
+      elevation: 6,
+      margin: const EdgeInsets.all(16),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(
+            colors: [Color(0xFF667eea), Color(0xFF764ba2)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: BorderRadius.circular(16),
+        ),
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                const Icon(Icons.psychology, color: Colors.white, size: 28),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Text(
+                    strings['ai_advice']!,
+                    style: const TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                IconButton(
+                  onPressed: _isGeneratingAdvice ? null : _generateAIAdvice,
+                  icon: _isGeneratingAdvice
+                      ? const SizedBox(
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                            strokeWidth: 2,
+                          ),
+                        )
+                      : const Icon(Icons.refresh, color: Colors.white),
+                ),
+                IconButton(
+                  onPressed: _aiAdvice != null ? _speakAdvice : null,
+                  icon: const Icon(Icons.volume_up, color: Colors.white),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            if (_isGeneratingAdvice)
+              Center(
+                child: Column(
+                  children: [
+                    const CircularProgressIndicator(color: Colors.white),
+                    const SizedBox(height: 8),
+                    Text(
+                      strings['generating_advice']!,
+                      style: const TextStyle(color: Colors.white70),
+                    ),
+                  ],
+                ),
+              )
+            else if (_adviceError != null)
+              Column(
+                children: [
+                  const Icon(
+                    Icons.error_outline,
+                    color: Colors.orange,
+                    size: 48,
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    strings['advice_error']!,
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                ],
+              )
+            else if (_aiAdvice != null)
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Text(
+                  _aiAdvice!,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    height: 1.5,
+                  ),
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
   }
 
   Widget _buildCurrentWeatherCard() {
@@ -386,7 +596,7 @@ class _WeatherPageState extends State<WeatherPage> {
                       ),
                     ),
                     Text(
-                      '${strings['feels_like']!} ${feelsLike}°C',
+                      'Feels like ${feelsLike}°C',
                       style: const TextStyle(
                         color: Colors.white70,
                         fontSize: 16,
@@ -402,446 +612,28 @@ class _WeatherPageState extends State<WeatherPage> {
     );
   }
 
-  Widget _buildWeatherDetailsGrid() {
-    if (_currentWeather == null) return const SizedBox();
-
-    final strings =
-        weatherStrings[widget.languageCode] ?? weatherStrings['en']!;
-    final humidity = _currentWeather!['main']['humidity'];
-    final pressure = _currentWeather!['main']['pressure'];
-    final windSpeed = _currentWeather!['wind']['speed'];
-    final visibility = (_currentWeather!['visibility'] / 1000).toStringAsFixed(
-      1,
-    );
-
-    final sunrise = DateTime.fromMillisecondsSinceEpoch(
-      _currentWeather!['sys']['sunrise'] * 1000,
-    );
-    final sunset = DateTime.fromMillisecondsSinceEpoch(
-      _currentWeather!['sys']['sunset'] * 1000,
-    );
-
-    return Card(
-      elevation: 4,
-      margin: const EdgeInsets.symmetric(horizontal: 16),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: GridView.count(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          crossAxisCount: 2,
-          childAspectRatio: 1.5,
-          crossAxisSpacing: 16,
-          mainAxisSpacing: 16,
-          children: [
-            _buildDetailCard(
-              Icons.water_drop,
-              strings['humidity']!,
-              '$humidity%',
-            ),
-            _buildDetailCard(
-              Icons.compress,
-              strings['pressure']!,
-              '${pressure}hPa',
-            ),
-            _buildDetailCard(
-              Icons.air,
-              strings['wind_speed']!,
-              '${windSpeed}m/s',
-            ),
-            _buildDetailCard(
-              Icons.visibility,
-              strings['visibility']!,
-              '${visibility}km',
-            ),
-            _buildDetailCard(
-              Icons.wb_sunny,
-              strings['sunrise']!,
-              DateFormat('HH:mm').format(sunrise),
-            ),
-            _buildDetailCard(
-              Icons.brightness_3,
-              strings['sunset']!,
-              DateFormat('HH:mm').format(sunset),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildDetailCard(IconData icon, String title, String value) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.grey[50],
-        borderRadius: BorderRadius.circular(12),
-      ),
-      padding: const EdgeInsets.all(12),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(icon, color: Colors.blue[600], size: 24),
-          const SizedBox(height: 8),
-          Text(
-            title,
-            style: TextStyle(
-              fontSize: 12,
-              color: Colors.grey[600],
-              fontWeight: FontWeight.w500,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 4),
-          Text(
-            value,
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: Colors.black87,
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildHourlyForecast() {
-    if (_hourlyForecast == null) return const SizedBox();
-
-    final strings =
-        weatherStrings[widget.languageCode] ?? weatherStrings['en']!;
-
-    return Card(
-      elevation: 4,
-      margin: const EdgeInsets.all(16),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              strings['hourly_forecast']!,
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 16),
-            SizedBox(
-              height: 120,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: _hourlyForecast!.length,
-                itemBuilder: (context, index) {
-                  final item = _hourlyForecast![index];
-                  final time = DateTime.fromMillisecondsSinceEpoch(
-                    item['dt'] * 1000,
-                  );
-                  final temp = item['main']['temp'].round();
-                  final iconCode = item['weather'][0]['icon'];
-
-                  return Container(
-                    width: 80,
-                    margin: const EdgeInsets.only(right: 12),
-                    decoration: BoxDecoration(
-                      color: Colors.blue[50],
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    padding: const EdgeInsets.all(8),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          DateFormat('HH:mm').format(time),
-                          style: const TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Text(
-                          _getWeatherIcon(iconCode),
-                          style: const TextStyle(fontSize: 24),
-                        ),
-                        Text(
-                          '${temp}°C',
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildDailyForecast() {
-    if (_dailyForecast == null) return const SizedBox();
-
-    final strings =
-        weatherStrings[widget.languageCode] ?? weatherStrings['en']!;
-
-    return Card(
-      elevation: 4,
-      margin: const EdgeInsets.symmetric(horizontal: 16),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              strings['daily_forecast']!,
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 16),
-            ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: _dailyForecast!.length,
-              itemBuilder: (context, index) {
-                final item = _dailyForecast![index];
-                final date = DateTime.fromMillisecondsSinceEpoch(
-                  item['dt'] * 1000,
-                );
-                final maxTemp = item['main']['temp_max'].round();
-                final minTemp = item['main']['temp_min'].round();
-                final iconCode = item['weather'][0]['icon'];
-                final description = item['weather'][0]['description'];
-
-                return Container(
-                  margin: const EdgeInsets.only(bottom: 8),
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: Colors.grey[50],
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        flex: 2,
-                        child: Text(
-                          DateFormat('EEE, MMM d').format(date),
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                      Text(
-                        _getWeatherIcon(iconCode),
-                        style: const TextStyle(fontSize: 24),
-                      ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        flex: 2,
-                        child: Text(
-                          description,
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey[600],
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text(
-                            '${strings['high']!}: ${maxTemp}°',
-                            style: const TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            '${strings['low']!}: ${minTemp}°',
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey[600],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildFarmingTips() {
-    if (_currentWeather == null) return const SizedBox();
-
-    final strings =
-        weatherStrings[widget.languageCode] ?? weatherStrings['en']!;
-    final temp = _currentWeather!['main']['temp'];
-    final humidity = _currentWeather!['main']['humidity'];
-    final windSpeed = _currentWeather!['wind']['speed'];
-
-    List<String> tips = [];
-
-    if (temp > 30) {
-      tips.add(strings['check_irrigation']!);
-    }
-    if (humidity > 80) {
-      tips.add(strings['protect_crops']!);
-    }
-    if (windSpeed < 2 && temp > 20 && temp < 30) {
-      tips.add(strings['good_for_farming']!);
-    }
-
-    if (tips.isEmpty) {
-      tips.add(strings['good_for_farming']!);
-    }
-
-    return Card(
-      elevation: 4,
-      margin: const EdgeInsets.all(16),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: Container(
-        decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            colors: [Color(0xFF56ab2f), Color(0xFFa8e063)],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-          borderRadius: BorderRadius.circular(16),
-        ),
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                const Icon(Icons.agriculture, color: Colors.white, size: 24),
-                const SizedBox(width: 8),
-                Text(
-                  strings['farming_tips']!,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 12),
-            ...tips
-                .map(
-                  (tip) => Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: Row(
-                      children: [
-                        const Icon(
-                          Icons.check_circle,
-                          color: Colors.white,
-                          size: 16,
-                        ),
-                        const SizedBox(width: 8),
-                        Expanded(
-                          child: Text(
-                            tip,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 14,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                )
-                .toList(),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Future<void> _speakCurrentWeather() async {
-    if (_currentWeather == null) return;
-
-    final strings =
-        weatherStrings[widget.languageCode] ?? weatherStrings['en']!;
-    final temp = _currentWeather!['main']['temp'].round();
-    final description = _currentWeather!['weather'][0]['description'];
-
-    String message = "${strings['current_weather']!}: $description, ${temp}°C.";
-
-    await _tts.setLanguage(widget.languageCode);
-    await _tts.speak(message);
-  }
-
-  final Map<String, String> weatherDescriptionMap = {
-    'clear sky': 'clear skies',
-    'few clouds': 'a few clouds',
-    'scattered clouds': 'scattered clouds',
-    'broken clouds': 'partly cloudy',
-    'overcast clouds': 'overcast',
-    'light rain': 'light rain',
-    'moderate rain': 'moderate rain',
-    'heavy intensity rain': 'heavy rain',
-    'thunderstorm': 'a thunderstorm',
-    'snow': 'snowfall',
-    'mist': 'misty conditions',
-    'haze': 'hazy conditions',
-    'fog': 'foggy conditions',
-  };
-
-  Future<void> _speakForecast() async {
-    if (_dailyForecast == null) return;
-
-    String message = widget.languageCode == 'hi'
-        ? "आने वाले छह दिनों के मौसम की जानकारी इस प्रकार है: "
-        : "Here is the weather forecast for the next six days: ";
-
-    for (var i = 0; i < 6 && i < _dailyForecast!.length; i++) {
-      final item = _dailyForecast![i];
-      final date = DateTime.fromMillisecondsSinceEpoch(item['dt'] * 1000);
-      final maxTemp = item['main']['temp_max'].round();
-      final minTemp = item['main']['temp_min'].round();
-      String description = item['weather'][0]['description'];
-
-      // Convert description to user-friendly text
-      description =
-          weatherDescriptionMap[description.toLowerCase()] ?? description;
-
-      if (widget.languageCode == 'hi') {
-        message +=
-            "${DateFormat('EEEE', 'hi_IN').format(date)} को ${description} की संभावना है, अधिकतम तापमान ${maxTemp} डिग्री और न्यूनतम तापमान ${minTemp} डिग्री होगा। ";
-      } else {
-        message +=
-            "On ${DateFormat('EEEE').format(date)}, expect ${description} with a high of ${maxTemp} degrees and a low of ${minTemp} degrees. ";
-      }
-    }
-
-    try {
-      await _tts.setLanguage(
-        widget.languageCode == 'hi'
-            ? 'hi-IN'
-            : widget.languageCode == 'ta'
-            ? 'ta-IN'
-            : widget.languageCode == 'kn'
-            ? 'kn-IN'
-            : widget.languageCode == 'te'
-            ? 'te-IN'
-            : 'en-US',
-      );
-      await _tts.speak(message);
-    } catch (e) {
-      debugPrint("TTS Forecast Error: $e");
-    }
+  String _getWeatherIcon(String iconCode) {
+    const iconMap = {
+      '01d': '☀️',
+      '01n': '🌙',
+      '02d': '⛅',
+      '02n': '☁️',
+      '03d': '☁️',
+      '03n': '☁️',
+      '04d': '☁️',
+      '04n': '☁️',
+      '09d': '🌧️',
+      '09n': '🌧️',
+      '10d': '🌦️',
+      '10n': '🌧️',
+      '11d': '⛈️',
+      '11n': '⛈️',
+      '13d': '❄️',
+      '13n': '❄️',
+      '50d': '🌫️',
+      '50n': '🌫️',
+    };
+    return iconMap[iconCode] ?? '☀️';
   }
 
   @override
@@ -856,29 +648,14 @@ class _WeatherPageState extends State<WeatherPage> {
         elevation: 0,
         actions: [
           IconButton(
-            icon: const Icon(Icons.volume_up),
-            onPressed: _speakCurrentWeather,
-            tooltip: "Speak Current Weather",
-          ),
-          IconButton(
-            icon: const Icon(Icons.calendar_today),
-            onPressed: _speakForecast,
-            tooltip: "Speak Forecast",
-          ),
-          IconButton(
             icon: const Icon(Icons.refresh),
             onPressed: () {
               setState(() {
                 _isLoading = true;
                 _error = null;
               });
-              _fetchWeatherData();
+              _initializeWeather();
             },
-          ),
-          IconButton(
-            icon: const Icon(Icons.speaker),
-            onPressed: _testTts,
-            tooltip: "Test TTS",
           ),
         ],
       ),
@@ -891,15 +668,15 @@ class _WeatherPageState extends State<WeatherPage> {
           ),
         ),
         child: _isLoading
-            ? Center(
+            ? const Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const CircularProgressIndicator(),
-                    const SizedBox(height: 16),
+                    CircularProgressIndicator(),
+                    SizedBox(height: 16),
                     Text(
-                      strings['loading']!,
-                      style: const TextStyle(fontSize: 16),
+                      'Loading weather data...',
+                      style: TextStyle(fontSize: 16),
                     ),
                   ],
                 ),
@@ -911,40 +688,11 @@ class _WeatherPageState extends State<WeatherPage> {
                   children: [
                     Icon(Icons.error_outline, size: 64, color: Colors.red[400]),
                     const SizedBox(height: 16),
-                    Text(
-                      strings['error']!,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      _error!,
-                      style: TextStyle(fontSize: 14, color: Colors.grey[600]),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 24),
-                    ElevatedButton.icon(
-                      onPressed: () {
-                        setState(() {
-                          _isLoading = true;
-                          _error = null;
-                        });
-                        _initializeWeather();
-                      },
-                      icon: const Icon(Icons.refresh),
-                      label: Text(strings['retry']!),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue[600],
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 24,
-                          vertical: 12,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
+                    Text('Error: $_error'),
+                    const SizedBox(height: 16),
+                    ElevatedButton(
+                      onPressed: _initializeWeather,
+                      child: const Text('Retry'),
                     ),
                   ],
                 ),
@@ -953,10 +701,8 @@ class _WeatherPageState extends State<WeatherPage> {
                 child: Column(
                   children: [
                     _buildCurrentWeatherCard(),
-                    _buildWeatherDetailsGrid(),
-                    _buildHourlyForecast(),
-                    _buildDailyForecast(),
-                    _buildFarmingTips(),
+                    _buildAIAdviceCard(),
+                    // Add other existing widgets here
                     const SizedBox(height: 20),
                   ],
                 ),
