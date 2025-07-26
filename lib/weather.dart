@@ -392,19 +392,51 @@ class _WeatherPageState extends State<WeatherPage> {
           ),
           actions: [
             if (_currentWeather != null)
-              IconButton(
-                icon: _isSpeaking
-                    ? const SizedBox(
-                        width: 24,
-                        height: 24,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
-                          color: Colors.white,
+              Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  onTap: _speakWeatherSummary,
+                  borderRadius: BorderRadius.circular(20),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.green.withOpacity(0.8),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 6,
+                    ),
+                    margin: const EdgeInsets.only(right: 8),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        _isSpeaking
+                            ? const SizedBox(
+                                width: 24,
+                                height: 24,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                  color: Colors.white,
+                                ),
+                              )
+                            : const Icon(
+                                Icons.volume_up,
+                                color: Colors.white,
+                                size: 28,
+                              ),
+                        const SizedBox(width: 8),
+                        Text(
+                          strings['speak_weather_summary']!,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
-                      )
-                    : const Icon(Icons.volume_up, color: Colors.white),
-                tooltip: strings['speak_weather_summary'],
-                onPressed: _speakWeatherSummary,
+                      ],
+                    ),
+                  ),
+                ),
               ),
           ],
         ),
