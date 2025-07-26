@@ -178,8 +178,9 @@ class _WeatherPageState extends State<WeatherPage> {
     } catch (e) {
       if (mounted) {
         setState(() => _error = e.toString());
-        if (!_dataLoaderCompleter.isCompleted)
+        if (!_dataLoaderCompleter.isCompleted) {
           _dataLoaderCompleter.completeError(e);
+        }
       }
     }
   }
@@ -315,7 +316,7 @@ class _WeatherPageState extends State<WeatherPage> {
     final currentTemp = _currentWeather!['main']['temp'].round();
     final currentCondition = _currentWeather!['weather'][0]['description'];
     String prompt =
-        "Today's weather is ${currentTemp}°C with ${currentCondition}. Forecast for the next 7 days: ";
+        "Today's weather is $currentTemp°C with $currentCondition. Forecast for the next 7 days: ";
 
     for (final day in _dailyForecast!) {
       final date = DateTime.fromMillisecondsSinceEpoch(day['dt'] * 1000);
@@ -323,7 +324,7 @@ class _WeatherPageState extends State<WeatherPage> {
       final maxTemp = day['temp']['max'].round();
       final minTemp = day['temp']['min'].round();
       final dayDesc = day['weather'][0]['description'];
-      prompt += "$dayName, $dayDesc, high ${maxTemp}°, low ${minTemp}°. ";
+      prompt += "$dayName, $dayDesc, high $maxTemp°, low $minTemp°. ";
     }
     return prompt;
   }
@@ -549,7 +550,7 @@ class _WeatherPageState extends State<WeatherPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Container(
+                SizedBox(
                   width: 100,
                   height: 100,
                   child: Image.network(
@@ -564,7 +565,7 @@ class _WeatherPageState extends State<WeatherPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '${temp}°C',
+                        '$temp°C',
                         style: const TextStyle(
                           fontSize: 48,
                           fontWeight: FontWeight.bold,
@@ -598,7 +599,7 @@ class _WeatherPageState extends State<WeatherPage> {
                   _buildWeatherDetail(
                     Icons.thermostat,
                     strings['feels_like']!,
-                    '${feelsLike}°C',
+                    '$feelsLike°C',
                   ),
                   Container(
                     height: 40,
@@ -631,8 +632,9 @@ class _WeatherPageState extends State<WeatherPage> {
 
   /// **ACTION**: This widget is updated to parse the new data structure.
   Widget _buildDailyForecastList(Map<String, String> strings) {
-    if (_dailyForecast == null || _dailyForecast!.isEmpty)
+    if (_dailyForecast == null || _dailyForecast!.isEmpty) {
       return const SizedBox.shrink();
+    }
     return ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -705,7 +707,7 @@ class _WeatherPageState extends State<WeatherPage> {
                           color: Colors.red[400],
                         ),
                         Text(
-                          ' ${maxTemp}°',
+                          ' $maxTemp°',
                           style: const TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 16,
@@ -722,7 +724,7 @@ class _WeatherPageState extends State<WeatherPage> {
                           color: Colors.blue[400],
                         ),
                         Text(
-                          ' ${minTemp}°',
+                          ' $minTemp°',
                           style: TextStyle(
                             color: Colors.grey[600],
                             fontWeight: FontWeight.w600,
