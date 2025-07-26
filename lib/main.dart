@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
-// Firebase removed: import 'package:firebase_core/firebase_core.dart';
-// Firebase removed: import 'firebase_options.dart';
-// Firebase removed: import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'firebase_options.dart';
 import 'dashboard.dart';
 
 // Crop options in local languages
@@ -372,6 +373,7 @@ const Map<String, String> ttsLocales = {
 };
 
 void main() async {
+  await dotenv.load(fileName: '.env');
   WidgetsFlutterBinding.ensureInitialized();
   // Firebase removed: await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const DigiwormApp());
@@ -384,7 +386,15 @@ class DigiwormApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Digiworm',
-      theme: ThemeData(primarySwatch: Colors.green, useMaterial3: true),
+      theme: ThemeData(
+        primarySwatch: Colors.green,
+        useMaterial3: true,
+        scaffoldBackgroundColor: Colors.transparent,
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.green.withOpacity(0.8),
+          elevation: 0,
+        ),
+      ),
       home: const LanguageSelectionPage(),
       debugShowCheckedModeBanner: false,
     );
@@ -398,17 +408,23 @@ class LanguageSelectionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Color(0xFFa8e063), Color(0xFF56ab2f)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
+        image: DecorationImage(
+          image: AssetImage('assets/agriculture_bg.jpg'),
+          fit: BoxFit.cover,
+          colorFilter: ColorFilter.mode(
+            Color(0x88000000), // Semi-transparent black overlay
+            BlendMode.darken,
+          ),
         ),
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
-          title: Text(localizedStrings['en']!['select_language_title']!),
-          backgroundColor: Colors.green.withOpacity(0.8),
+          title: Text(
+            localizedStrings['en']!['select_language_title']!,
+            style: const TextStyle(color: Colors.white),
+          ),
+          backgroundColor: Colors.transparent,
           elevation: 0,
         ),
         body: Center(
@@ -418,6 +434,7 @@ class LanguageSelectionPage extends StatelessWidget {
               borderRadius: BorderRadius.circular(24),
             ),
             margin: const EdgeInsets.all(24),
+            color: Colors.white.withOpacity(0.9),
             child: Padding(
               padding: const EdgeInsets.all(32.0),
               child: Column(
@@ -439,10 +456,16 @@ class LanguageSelectionPage extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green[400],
+                          backgroundColor: Colors.green[600],
+                          foregroundColor: Colors.white,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 32,
+                            vertical: 12,
+                          ),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(16),
                           ),
+                          elevation: 4,
                         ),
                         onPressed: () {
                           Navigator.push(
@@ -489,12 +512,14 @@ class NameInputPage extends StatefulWidget {
 class _NameInputPageState extends State<NameInputPage> {
   final TextEditingController _controller = TextEditingController();
   late FlutterTts _tts;
+  late stt.SpeechToText _speechToText;
   bool _isListening = false;
 
   @override
   void initState() {
     super.initState();
     _tts = FlutterTts();
+    _speechToText = stt.SpeechToText();
     _speakPrompt();
   }
 
@@ -505,10 +530,10 @@ class _NameInputPageState extends State<NameInputPage> {
 
   Future<void> _listen() async {
     if (!_isListening) {
-      bool available = await stt.SpeechToText().initialize();
+      bool available = await _speechToText.initialize();
       if (available) {
         setState(() => _isListening = true);
-        stt.SpeechToText().listen(
+        _speechToText.listen(
           localeId: widget.languageCode,
           onResult: (result) {
             setState(() {
@@ -519,7 +544,7 @@ class _NameInputPageState extends State<NameInputPage> {
       }
     } else {
       setState(() => _isListening = false);
-      stt.SpeechToText().stop();
+      _speechToText.stop();
     }
   }
 
@@ -527,10 +552,13 @@ class _NameInputPageState extends State<NameInputPage> {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Color(0xFFa8e063), Color(0xFF56ab2f)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
+        image: DecorationImage(
+          image: AssetImage('assets/agriculture_bg.jpg'),
+          fit: BoxFit.cover,
+          colorFilter: ColorFilter.mode(
+            Color(0x88000000), // Semi-transparent black overlay
+            BlendMode.darken,
+          ),
         ),
       ),
       child: Scaffold(
@@ -538,8 +566,9 @@ class _NameInputPageState extends State<NameInputPage> {
         appBar: AppBar(
           title: Text(
             localizedStrings[widget.languageCode]!['enter_name_title']!,
+            style: const TextStyle(color: Colors.white),
           ),
-          backgroundColor: Colors.green.withOpacity(0.8),
+          backgroundColor: Colors.transparent,
           elevation: 0,
         ),
         body: Center(
@@ -549,6 +578,7 @@ class _NameInputPageState extends State<NameInputPage> {
               borderRadius: BorderRadius.circular(24),
             ),
             margin: const EdgeInsets.all(24),
+            color: Colors.white.withOpacity(0.9),
             child: Padding(
               padding: const EdgeInsets.all(32.0),
               child: Column(
@@ -693,10 +723,13 @@ class _PhoneInputPageState extends State<PhoneInputPage> {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Color(0xFFa8e063), Color(0xFF56ab2f)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
+        image: DecorationImage(
+          image: AssetImage('assets/agriculture_bg.jpg'),
+          fit: BoxFit.cover,
+          colorFilter: ColorFilter.mode(
+            Color(0x88000000), // Semi-transparent black overlay
+            BlendMode.darken,
+          ),
         ),
       ),
       child: Scaffold(
@@ -704,8 +737,9 @@ class _PhoneInputPageState extends State<PhoneInputPage> {
         appBar: AppBar(
           title: Text(
             localizedStrings[widget.languageCode]!['enter_phone_title']!,
+            style: const TextStyle(color: Colors.white),
           ),
-          backgroundColor: Colors.green.withOpacity(0.8),
+          backgroundColor: Colors.transparent,
           elevation: 0,
         ),
         body: Center(
@@ -846,10 +880,13 @@ class _LandholdingsInputPageState extends State<LandholdingsInputPage> {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Color(0xFFa8e063), Color(0xFF56ab2f)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
+        image: DecorationImage(
+          image: AssetImage('assets/agriculture_bg.jpg'),
+          fit: BoxFit.cover,
+          colorFilter: ColorFilter.mode(
+            Color(0x88000000), // Semi-transparent black overlay
+            BlendMode.darken,
+          ),
         ),
       ),
       child: Scaffold(
@@ -857,8 +894,9 @@ class _LandholdingsInputPageState extends State<LandholdingsInputPage> {
         appBar: AppBar(
           title: Text(
             localizedStrings[widget.languageCode]!['enter_land_title']!,
+            style: const TextStyle(color: Colors.white),
           ),
-          backgroundColor: Colors.green.withOpacity(0.8),
+          backgroundColor: Colors.transparent,
           elevation: 0,
         ),
         body: Center(
@@ -1083,29 +1121,24 @@ class _CropsInputPageState extends State<CropsInputPage> {
       appBar: AppBar(
         title: Text(
           localizedStrings[widget.languageCode]!['enter_crops_title']!,
+          style: const TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.green.withOpacity(0.8),
+        backgroundColor: Colors.transparent,
         elevation: 0,
       ),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/agriculture_bg.jpg'),
             fit: BoxFit.cover,
             colorFilter: ColorFilter.mode(
-              Colors.green.withOpacity(0.18),
-              BlendMode.srcATop,
+              Color(0x88000000), // Semi-transparent black overlay
+              BlendMode.darken,
             ),
           ),
         ),
         child: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Color(0xFFa8e063), Color(0xFF56ab2f)],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-          ),
+          decoration: BoxDecoration(color: Colors.transparent),
           child: SafeArea(
             child: Column(
               children: [
